@@ -1,0 +1,3 @@
+2025-11-28|Income|Salary|325678900|325345
+2025-11-28|Income|Freelance|123400|freelancing resources
+2025-11-28|Expense|Bills|234500|bills payment
