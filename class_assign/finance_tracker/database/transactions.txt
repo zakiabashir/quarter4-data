@@ -1,3 +1,7 @@
 2025-11-28|Income|Salary|325678900|325345
 2025-11-28|Income|Freelance|123400|freelancing resources
 2025-11-28|Expense|Bills|234500|bills payment
+2025-11-28|Income|Business|23456789000|bussiess
+2025-11-28|Expense|Health|567800|heal
+2025-11-28|Income|Salary|45678900|its my sallery rnsection
+2025-11-28|Expense|Other|4536700|others

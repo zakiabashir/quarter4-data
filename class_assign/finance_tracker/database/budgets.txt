@@ -1,2 +1,5 @@
 Shopping|345600
 Health|3000000
+Transport|3456700
+Entertainment|7864300
+Food|450000
