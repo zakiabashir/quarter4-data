@@ -1,0 +1,768 @@
+openapi: 3.0.3
+info:
+  title: AI-Native Physical AI Textbook API
+  description: API for the AI-Native Physical AI & Humanoid Robotics Educational Platform
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@ai-textbook.example
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.ai-textbook.example/v1
+    description: Production server
+  - url: https://staging-api.ai-textbook.example/v1
+    description: Staging server
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      description: Authenticate user with OAuth provider
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Invalid credentials
+        '500':
+          description: Server error
+
+  /auth/logout:
+    post:
+      tags:
+        - Authentication
+      summary: User logout
+      description: Invalidate user session
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successfully logged out
+        '401':
+          description: Not authenticated
+
+  /auth/profile:
+    get:
+      tags:
+        - Authentication
+      summary: Get user profile
+      description: Retrieve current user profile
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /chapters:
+    get:
+      tags:
+        - Content
+      summary: List chapters
+      description: Get list of all chapters with progress
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: language
+          in: query
+          schema:
+            type: string
+            enum: [en, ur]
+            default: en
+        - name: include_progress
+          in: query
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: List of chapters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chapter'
+
+  /chapters/{chapterId}:
+    get:
+      tags:
+        - Content
+      summary: Get chapter details
+      description: Get detailed chapter information with sections
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: chapterId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: language
+          in: query
+          schema:
+            type: string
+            enum: [en, ur]
+            default: en
+      responses:
+        '200':
+          description: Chapter details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChapterDetail'
+        '404':
+          description: Chapter not found
+
+  /progress:
+    get:
+      tags:
+        - Progress
+      summary: Get user progress
+      description: Get comprehensive progress for current user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User progress
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProgress'
+
+  /progress/chapters/{chapterId}:
+    post:
+      tags:
+        - Progress
+      summary: Update chapter progress
+      description: Update progress for a specific chapter
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: chapterId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProgressUpdate'
+      responses:
+        '200':
+          description: Progress updated
+        '400':
+          description: Invalid progress data
+
+  /bookmarks:
+    post:
+      tags:
+        - Progress
+      summary: Add bookmark
+      description: Add a bookmark for content
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bookmark'
+      responses:
+        '201':
+          description: Bookmark created
+        '400':
+          description: Invalid bookmark data
+
+    get:
+      tags:
+        - Progress
+      summary: List bookmarks
+      description: Get user's bookmarks
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: chapter_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of bookmarks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bookmark'
+
+  /chat/sessions:
+    post:
+      tags:
+        - Chat
+      summary: Create chat session
+      description: Start a new chat session
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateChatSession'
+      responses:
+        '201':
+          description: Chat session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatSession'
+
+  /chat/sessions/{sessionId}/messages:
+    post:
+      tags:
+        - Chat
+      summary: Send message
+      description: Send a message in chat session
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatMessage'
+      responses:
+        '200':
+          description: Message sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Invalid message
+
+  /code/execute:
+    post:
+      tags:
+        - Code Execution
+      summary: Execute code
+      description: Execute code in sandboxed environment
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodeExecutionRequest'
+      responses:
+        '200':
+          description: Code executed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeExecutionResponse'
+        '400':
+          description: Invalid code
+        '503':
+          description: Execution service unavailable
+
+  /simulations:
+    get:
+      tags:
+        - Simulations
+      summary: List simulations
+      description: Get available simulation environments
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of simulations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SimulationEnvironment'
+
+  /simulations/{simulationId}/sessions:
+    post:
+      tags:
+        - Simulations
+      summary: Start simulation
+      description: Start a new simulation session
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: simulationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartSimulation'
+      responses:
+        '201':
+          description: Simulation started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimulationSession'
+
+  /quizzes/{quizId}/attempts:
+    post:
+      tags:
+        - Assessments
+      summary: Submit quiz attempt
+      description: Submit answers for a quiz
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: quizId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizSubmission'
+      responses:
+        '200':
+          description: Quiz graded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizResult'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+        - provider
+        - token
+      properties:
+        provider:
+          type: string
+          enum: [github, google]
+        token:
+          type: string
+          description: OAuth token
+
+    AuthResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        token:
+          type: string
+        expires_in:
+          type: integer
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        role:
+          type: string
+          enum: [student, instructor, admin]
+        preferences:
+          $ref: '#/components/schemas/UserPreferences'
+        profile:
+          $ref: '#/components/schemas/UserProfile'
+        created_at:
+          type: string
+          format: date-time
+
+    UserPreferences:
+      type: object
+      properties:
+        language:
+          type: string
+          enum: [en, ur]
+        theme:
+          type: string
+          enum: [light, dark, auto]
+        content_depth:
+          type: string
+          enum: [beginner, intermediate, advanced]
+
+    UserProfile:
+      type: object
+      properties:
+        avatar:
+          type: string
+          format: uri
+        bio:
+          type: string
+        institution:
+          type: string
+        expertise:
+          type: array
+          items:
+            type: string
+
+    Chapter:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        number:
+          type: integer
+        title:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        difficulty:
+          type: string
+          enum: [beginner, intermediate, advanced]
+        estimated_duration:
+          type: integer
+        progress:
+          $ref: '#/components/schemas/ChapterProgress'
+
+    ChapterDetail:
+      allOf:
+        - $ref: '#/components/schemas/Chapter'
+        - type: object
+          properties:
+            learning_objectives:
+              type: array
+              items:
+                type: string
+            prerequisites:
+              type: array
+              items:
+                type: string
+            sections:
+              type: array
+              items:
+                $ref: '#/components/schemas/Section'
+
+    Section:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        order:
+          type: integer
+        title:
+          type: string
+        type:
+          type: string
+          enum: [concept, example, exercise, lab, quiz]
+        completed:
+          type: boolean
+
+    ChapterProgress:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [not_started, in_progress, completed]
+        sections_completed:
+          type: integer
+        total_sections:
+          type: integer
+        time_spent:
+          type: integer
+        last_accessed:
+          type: string
+          format: date-time
+
+    UserProgress:
+      type: object
+      properties:
+        chapters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChapterProgress'
+        overall:
+          $ref: '#/components/schemas/OverallProgress'
+        achievements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Achievement'
+
+    OverallProgress:
+      type: object
+      properties:
+        chapters_completed:
+          type: integer
+        total_chapters:
+          type: integer
+        total_time_spent:
+          type: integer
+        streak:
+          type: integer
+        estimated_completion:
+          type: string
+          format: date
+
+    Achievement:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        earned_at:
+          type: string
+          format: date-time
+
+    ProgressUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [in_progress, completed]
+        sections_completed:
+          type: array
+          items:
+            type: string
+            format: uuid
+        time_spent:
+          type: integer
+
+    Bookmark:
+      type: object
+      required:
+        - chapter_id
+        - content_type
+        - content_id
+        - title
+      properties:
+        id:
+          type: string
+          format: uuid
+        chapter_id:
+          type: string
+          format: uuid
+        content_type:
+          type: string
+          enum: [section, code_example, diagram]
+        content_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        note:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    CreateChatSession:
+      type: object
+      properties:
+        chapter_id:
+          type: string
+          format: uuid
+        context:
+          type: object
+          properties:
+            section_id:
+              type: string
+              format: uuid
+            topic:
+              type: string
+
+    ChatSession:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+        message_count:
+          type: integer
+
+    ChatMessage:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+        sources:
+          type: array
+          items:
+            type: string
+
+    ChatResponse:
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/ChatMessage'
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceReference'
+
+    SourceReference:
+      type: object
+      properties:
+        chapter_id:
+          type: string
+          format: uuid
+        section_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        snippet:
+          type: string
+
+    CodeExecutionRequest:
+      type: object
+      required:
+        - code
+        - language
+      properties:
+        code:
+          type: string
+        language:
+          type: string
+          enum: [python, cpp, ros2]
+        input:
+          type: string
+        chapter_id:
+          type: string
+          format: uuid
+        example_id:
+          type: string
+          format: uuid
+
+    CodeExecutionResponse:
+      type: object
+      properties:
+        output:
+          type: string
+        error:
+          type: string
+        execution_time:
+          type: integer
+        memory_usage:
+          type: integer
+
+    SimulationEnvironment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          type: string
+          enum: [gazebo, unity, isaac, webgl]
+        status:
+          type: string
+          enum: [active, maintenance, deprecated]
+
+    StartSimulation:
+      type: object
+      required:
+        - scenario_id
+      properties:
+        scenario_id:
+          type: string
+          format: uuid
+        configuration:
+          type: object
+
+    SimulationSession:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        url:
+          type: string
+          expires_at:
+          type: string
+          format: date-time
+
+    QuizSubmission:
+      type: object
+      required:
+        - answers
+      properties:
+        answers:
+          type: object
+          additionalProperties:
+            type: string
+
+    QuizResult:
+      type: object
+      properties:
+        score:
+          type: integer
+        max_score:
+          type: integer
+        passed:
+          type: boolean
+        feedback:
+          type: object
+          additionalProperties:
+            type: string

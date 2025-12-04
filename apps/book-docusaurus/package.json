@@ -1,0 +1,55 @@
+{
+  "name": "@ai-textbook/docusaurus",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "test": "jest",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint src --ext .js,.jsx,.ts,.tsx --fix"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^3.0.0",
+    "@docusaurus/preset-classic": "^3.0.0",
+    "@docusaurus/plugin-content-docs": "^3.0.0",
+    "@docusaurus/theme-mermaid": "^3.0.0",
+    "@docusaurus/theme-live-codeblock": "^3.0.0",
+    "@mdx-js/react": "^3.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "clsx": "^2.0.0"
+  },
+  "devDependencies": {
+    "@docusaurus/module-type-aliases": "^3.0.0",
+    "@docusaurus/tsconfig": "^3.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-react-app": "^7.0.1",
+    "jest": "^29.7.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0"
+  }
+}
