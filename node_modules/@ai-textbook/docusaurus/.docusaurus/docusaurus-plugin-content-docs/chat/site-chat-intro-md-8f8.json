@@ -1,0 +1,16 @@
+{
+  "id": "intro",
+  "title": "AI Assistant",
+  "description": "Welcome to the AI-powered assistant for the Physical AI textbook.",
+  "source": "@site/chat/intro.md",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/chat/intro",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "AI Assistant"
+  }
+}

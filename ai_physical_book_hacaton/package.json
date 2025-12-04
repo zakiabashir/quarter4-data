@@ -1,0 +1,1 @@
+{"name":"ai-physical-textbook","version":"1.0.0","description":"AI-Native Physical AI & Humanoid Robotics Educational Textbook","private":true,"workspaces":["apps/*","packages/*"],"dependencies":{"@easyops-cn/docusaurus-search-local":"^0.52.2","lunr-languages":"^1.14.0"}}

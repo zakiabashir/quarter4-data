@@ -1,0 +1,19 @@
+{
+  "id": "chapter1/introduction",
+  "title": "Introduction to Physical AI",
+  "description": "Learning Objectives",
+  "source": "@site/docs/chapter1/introduction.md",
+  "sourceDirName": "chapter1",
+  "slug": "/chapter1/introduction",
+  "permalink": "/docs/chapter1/introduction",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/ai-textbook/physical-ai-textbook/tree/main/docs/chapter1/introduction.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Introduction to Physical AI",
+    "sidebar_position": 1
+  }
+}

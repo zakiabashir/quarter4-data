@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "SlashCommand(/sp.plan)",
+      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
+      "Bash(D:\\quarter4-data\\ai_physical_book_hacaton\\spec-kit-plus\\.specify\\scripts\\bash\\check-prerequisites.sh:*)",
+      "Bash('D:/quarter4-data/ai_physical_book_hacaton/spec-kit-plus/.specify/scripts/bash/check-prerequisites.sh' --json --require-tasks --include-tasks)",
+      "Bash(git rev-parse:*)",
+      "Bash(npx create-docusaurus@latest:*)",
+      "Bash(python:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

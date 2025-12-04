@@ -1,0 +1,19 @@
+{
+  "id": "chapter1/sensors-and-perception",
+  "title": "1.2 Sensors and Perception",
+  "description": "Overview",
+  "source": "@site/docs/chapter1/sensors-and-perception.md",
+  "sourceDirName": "chapter1",
+  "slug": "/chapter1/sensors-and-perception",
+  "permalink": "/docs/chapter1/sensors-and-perception",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/ai-textbook/physical-ai-textbook/tree/main/docs/chapter1/sensors-and-perception.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "1.2 Sensors and Perception",
+    "sidebar_position": 2
+  }
+}
