@@ -1,0 +1,284 @@
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/* Layout */
+:root {
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Custom colors for AI Textbook */
+  --ai-primary-color: #0066cc;
+  --ai-secondary-color: #ff6b35;
+  --ai-success-color: #00a86b;
+  --ai-warning-color: #f4b942;
+  --ai-error-color: #e74c3c;
+}
+
+/* Dark mode variables */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Hero section */
+.hero__title {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.2;
+  background: linear-gradient(
+    90deg,
+    var(--ai-primary-color),
+    var(--ai-secondary-color)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media screen and (max-width: 966px) {
+  .hero__title {
+    font-size: 2.5rem;
+  }
+}
+
+/* Code blocks */
+.docusaurus-highlight-code-line {
+  background-color: var(--docusaurus-highlighted-code-line-bg);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+/* Quiz component styles */
+.quiz-container {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius);
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.quiz-option {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  border: 2px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius);
+  background: var(--ifm-background-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quiz-option:hover {
+  border-color: var(--ai-primary-color);
+  background: var(--ifm-color-primary-lightest);
+}
+
+.quiz-option.selected {
+  border-color: var(--ai-primary-color);
+  background: var(--ifm-color-primary-lightest);
+}
+
+.quiz-option.correct {
+  border-color: var(--ai-success-color);
+  background: var(--ai-success-color);
+  color: white;
+}
+
+.quiz-option.incorrect {
+  border-color: var(--ai-error-color);
+  background: var(--ai-error-color);
+  color: white;
+}
+
+/* Chat assistant styles */
+.chat-assistant {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.chat-button {
+  background: var(--ai-primary-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+  transition: all 0.3s ease;
+}
+
+.chat-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+}
+
+/* Code runner styles */
+.code-runner {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius);
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.code-runner-header {
+  background: var(--ifm-color-emphasis-100);
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.code-run-button {
+  background: var(--ai-success-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--ifm-border-radius);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.code-run-button:hover {
+  background: #008f5a;
+}
+
+.code-output {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 1rem;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9rem;
+  min-height: 60px;
+  white-space: pre-wrap;
+}
+
+/* Progress tracker styles */
+.progress-tracker {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--ifm-color-emphasis-200);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--ai-primary-color), var(--ai-secondary-color));
+  transition: width 0.3s ease;
+}
+
+/* Lab exercise styles */
+.lab-exercise {
+  background: var(--ifm-color-info-contrast-background);
+  border-left: 4px solid var(--ifm-color-info);
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+}
+
+.lab-exercise h3 {
+  color: var(--ifm-color-info);
+  margin-top: 0;
+}
+
+/* Simulation viewer styles */
+.simulation-viewer {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius);
+  overflow: hidden;
+  min-height: 400px;
+  position: relative;
+  background: #f0f0f0;
+}
+
+.simulation-controls {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+/* Personalization styles */
+.depth-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: var(--ifm-border-radius);
+  font-size: 0.875rem;
+}
+
+.depth-toggle select {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  background: var(--ifm-background-color);
+}
+
+/* RTL support for Urdu */
+[dir='rtl'] {
+  text-align: right;
+}
+
+[dir='rtl'] .code-runner-header {
+  flex-direction: row-reverse;
+}
+
+[dir='rtl'] .simulation-controls {
+  left: auto;
+  right: 1rem;
+  transform: none;
+}
+
+/* Mermaid diagram customization */
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+/* Print styles */
+@media print {
+  .chat-assistant,
+  .code-run-button,
+  .progress-tracker {
+    display: none;
+  }
+}
