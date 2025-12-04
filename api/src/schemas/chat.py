@@ -45,7 +45,7 @@ class ChatMessageResponse(ChatMessageBase):
 
 class ConversationBase(BaseModel):
     title: str = Field(..., min_length=1, max_length=255)
-    context_type: str = Field(default="general", regex="^(general|chapter|section|quiz)$")
+    context_type: str = Field(default="general", pattern="^(general|chapter|section|quiz)$")
     context_ids: Optional[List[str]] = []
 
 class ConversationCreate(ConversationBase):
@@ -53,7 +53,7 @@ class ConversationCreate(ConversationBase):
 
 class ConversationUpdate(BaseModel):
     title: Optional[str] = Field(None, min_length=1, max_length=255)
-    context_type: Optional[str] = Field(None, regex="^(general|chapter|section|quiz)$")
+    context_type: Optional[str] = Field(None, pattern="^(general|chapter|section|quiz)$")
     context_ids: Optional[List[str]] = None
     is_archived: Optional[bool] = None
 

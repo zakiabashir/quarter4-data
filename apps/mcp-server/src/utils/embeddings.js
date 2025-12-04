@@ -1,10 +1,14 @@
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
+const openai = process.env.OPENAI_API_KEY ? new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
-});
+}) : null;
 
 export async function getEmbedding(text) {
+  if (!openai) {
+    console.warn("OpenAI not configured, returning dummy embedding");
+    return new Array(1536).fill(0);
+  }
   try {
     const response = await openai.embeddings.create({
       model: 'text-embedding-ada-002',

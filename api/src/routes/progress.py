@@ -8,7 +8,7 @@ from ..database import get_db
 from ..models.progress import UserProgress, ChapterProgress, Bookmark, Note, Achievement
 from ..models.user import User
 from ..models.chapter import Chapter
-from ..schemas.progress import ProgressResponse, ChapterProgressResponse, BookmarkCreate, BookmarkResponse, NoteCreate, NoteResponse
+from ..schemas.progress import UserProgressResponse, ChapterProgressResponse, BookmarkCreate, BookmarkResponse, NoteCreate, NoteResponse
 from ..middleware.auth import get_current_active_user
 from decimal import Decimal
 
@@ -52,7 +52,7 @@ def update_user_progress(db: Session, user_id: str):
     db.commit()
     return progress
 
-@router.get("/", response_model=ProgressResponse)
+@router.get("/", response_model=UserProgressResponse)
 async def get_user_progress(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
@@ -407,6 +407,7 @@ async def delete_note(
 async def get_progress_stats(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
+):
     """Get progress statistics"""
     progress = update_user_progress(db, current_user.id)
 

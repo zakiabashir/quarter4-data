@@ -1,4 +1,4 @@
-import { QdrantClient } from 'qdrant-client';
+import { QdrantClient } from '@qdrant/js-client-rest';
 import OpenAI from 'openai';
 import { getEmbedding } from '../utils/embeddings.js';
 

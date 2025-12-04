@@ -11,10 +11,10 @@ from src.routes import auth, chapters, progress, chat
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    print("🚀 AI Textbook API is starting up...")
+    print("AI Textbook API is starting up...")
     yield
-    # Shutdown
-    print("🛑 AI Textbook API is shutting down...")
+    print("AI Textbook API is shutting down...")
+    print("AI Textbook API is shutting down...")
 
 app = FastAPI(
     title="AI-Native Physical AI Textbook API",

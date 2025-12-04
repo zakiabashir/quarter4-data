@@ -29,7 +29,7 @@ class ChapterBase(BaseModel):
     is_published: bool = False
 
 class ChapterCreate(ChapterBase):
-    sections: Optional[List[Dict[str, Any]] = Field(default_factory=list)
+    sections: Optional[List[Dict[str, Any]]] = Field(default_factory=list)
     translations: Optional[Dict[str, Dict[str, str]]] = Field(default_factory=dict)
 
     @validator('slug')

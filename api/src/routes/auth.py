@@ -8,7 +8,7 @@ import os
 
 from ..database import get_db
 from ..models.user import User
-from ..schemas.user import UserCreate, UserResponse, UserAuth, UserLogin, PasswordChange
+from ..schemas.user import UserCreate, UserUpdate, UserResponse, UserAuth, UserLogin, PasswordChange
 from ..middleware.auth import (
     SECRET_KEY,
     ALGORITHM,
